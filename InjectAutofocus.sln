@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InjectAutofocus", "InjectAutofocus\InjectAutofocus.csproj", "{F783A62D-2D21-42C9-955F-5AE1A4AE9238}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F783A62D-2D21-42C9-955F-5AE1A4AE9238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F783A62D-2D21-42C9-955F-5AE1A4AE9238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F783A62D-2D21-42C9-955F-5AE1A4AE9238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F783A62D-2D21-42C9-955F-5AE1A4AE9238}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE11EE52-60DC-42DE-B29B-BA425B38256F}
+	EndGlobalSection
+EndGlobal
