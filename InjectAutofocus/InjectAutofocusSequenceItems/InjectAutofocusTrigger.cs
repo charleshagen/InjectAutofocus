@@ -36,7 +36,7 @@ namespace CharlesHagen.NINA.InjectAutofocus.InjectAutofocusTestCategory {
     /// </summary>
     [ExportMetadata("Name", "Inject Autofocus")]
     [ExportMetadata("Description", "This trigger will run Autofocus after the inject autofocus button is pressed at the next available opportunity")]
-    [ExportMetadata("Icon", "AutoFocusSVG")]
+    [ExportMetadata("Icon", "Inject_Autofocus_SVG")]
     [ExportMetadata("Category", "Inject Autofocus")]
     [Export(typeof(ISequenceTrigger))]
     [JsonObject(MemberSerialization.OptIn)]

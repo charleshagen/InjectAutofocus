@@ -38,7 +38,7 @@ namespace CharlesHagen.NINA.InjectAutofocus.InjectAutofocusDockables {
             // This will reference the resource dictionary to import the SVG graphic and assign it as the icon for the header bar
             var dict = new ResourceDictionary();
             dict.Source = new Uri("CharlesHagen.NINA.InjectAutofocus;component/InjectAutofocusDockables/InjectAutofocusDockableTemplates.xaml", UriKind.RelativeOrAbsolute);
-            ImageGeometry = (System.Windows.Media.GeometryGroup)dict["CharlesHagen.NINA.InjectAutofocus_AltitudeSVG"];
+            ImageGeometry = (System.Windows.Media.GeometryGroup)dict["CharlesHagen.NINA.InjectAutofocusSVG"];
             ImageGeometry.Freeze();
 
             this.nighttimeCalculator = nighttimeCalculator;
