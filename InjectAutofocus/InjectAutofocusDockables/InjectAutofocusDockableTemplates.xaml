@@ -11,13 +11,24 @@
 
     <!--  The datatemplae for the dockable is indicated by the fully qualified class name and the postfix _Dockable  -->
     <DataTemplate x:Key="CharlesHagen.NINA.InjectAutofocus.InjectAutofocusDockables.InjectAutofocusDockable_Dockable">
-        <ninactrl:AsyncProcessButton
-            Margin="8"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            ButtonImage="{StaticResource AutoFocusSVG}"
-            Command="{Binding InjectAutofocus_ButtonCommand}"
-            ToolTip="Inject an autofocus command at the next available time in the active sequence" />
+        <Button Margin="8" Command="{Binding InjectAutofocusCommand}">
+            <Button.ToolTip>
+                <ToolTip ToolTipService.ShowOnDisabled="True">
+                    <TextBlock Text="Inject Autofocus" />
+                </ToolTip>
+            </Button.ToolTip>
+            <Grid>
+                <Path
+                    Width="40"
+                    Margin="5"
+                    Data="{StaticResource AutoFocusSVG}"
+                    Fill="{StaticResource ButtonForegroundBrush}"
+                    RenderTransformOrigin="0.5,0.5"
+                    Stretch="Uniform"
+                    UseLayoutRounding="True" />
+                <TextBlock Foreground="{StaticResource ButtonForegroundBrush}" />
+            </Grid>
+        </Button>
     </DataTemplate>
 
     <!--  This geometrygroup defines a custom SVG to be used with the plugin dockable  -->

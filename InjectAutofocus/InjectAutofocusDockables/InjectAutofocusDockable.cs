@@ -13,28 +13,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.Input;
-using NINA.Core.Utility;
 using NINA.Sequencer.Interfaces.Mediator;
 using NINA.Core.Enum;
 using System.Windows.Input;
 
 namespace CharlesHagen.NINA.InjectAutofocus.InjectAutofocusDockables {
-    /// <summary>
-    /// This Class shows the basic principle on how to add a new panel to N.I.N.A. Imaging tab via the plugin interface
-    /// In this example an altitude chart is added to the imaging tab that shows the altitude chart based on the position of the telescope    
-    /// </summary>
     [Export(typeof(IDockableVM))]
-    public partial class InjectAutofocusDockable : DockableVM, ITelescopeConsumer {
-        private INighttimeCalculator nighttimeCalculator;
-        private ITelescopeMediator telescopeMediator;
+    public partial class InjectAutofocusDockable : DockableVM {
         private ISequenceMediator sequenceMediator;
 
         [ImportingConstructor]
         public InjectAutofocusDockable(
             IProfileService profileService,
-            ITelescopeMediator telescopeMediator,
-            ISequenceMediator sequenceMediator,
-            INighttimeCalculator nighttimeCalculator) : base(profileService) {
+            ISequenceMediator sequenceMediator) : base(profileService) {
 
             // This will reference the resource dictionary to import the SVG graphic and assign it as the icon for the header bar
             var dict = new ResourceDictionary();
@@ -42,31 +33,31 @@ namespace CharlesHagen.NINA.InjectAutofocus.InjectAutofocusDockables {
             ImageGeometry = (System.Windows.Media.GeometryGroup)dict["CharlesHagen.NINA.InjectAutofocusSVG"];
             ImageGeometry.Freeze();
 
-            this.nighttimeCalculator = nighttimeCalculator;
-            this.telescopeMediator = telescopeMediator;
             this.sequenceMediator = sequenceMediator;
-            telescopeMediator.RegisterConsumer(this);
             Title = "Inject Autofocus";
             Target = null;
 
-            //InjectAutofocusCommand = new AsyncRelayCommand<bool>(async (o) =>
-            //{
-            //    await Task.Run(() => TriggerState.RequestAutofocus());
-            //}, (o) => sequenceMediator.IsAdvancedSequenceRunning());
+            InjectAutofocusCommand = new RelayCommand(() => TriggerState.RequestAutofocus(), () => sequenceMediator.Initialized && sequenceMediator.IsAdvancedSequenceRunning());
+
+            // Sequence mediator is not initialized when the plugin is loaded so we have to wait until we can register the handler.
+            _ = Task.Run(async () => {
+                while (!sequenceMediator.Initialized) { 
+                  await Task.Delay(10);
+            }
+                sequenceMediator.SequenceStarting += SequenceStateChanged;
+                sequenceMediator.SequenceFinished += SequenceStateChanged;
+            });
         }
 
-        //public ICommand InjectAutofocusCommand { get; private set; }
+        public RelayCommand InjectAutofocusCommand { get; }
 
-
-        [RelayCommand]
-        private static async Task<bool> InjectAutofocus_Button(object arg) {
-            TriggerState.RequestAutofocus();
-            return true;
+        private Task SequenceStateChanged(object sender, EventArgs e) {
+            InjectAutofocusCommand.NotifyCanExecuteChanged();
+            return Task.CompletedTask;
         }
 
         public void Dispose() {
             // On shutdown cleanup
-            telescopeMediator.RemoveConsumer(this);
         }
         public NighttimeData NighttimeData { get; private set; }
         public TelescopeInfo TelescopeInfo { get; private set; }

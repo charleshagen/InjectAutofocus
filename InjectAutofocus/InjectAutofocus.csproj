@@ -10,7 +10,7 @@
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="NINA.Plugin" Version="3.0.0.2017-beta" />
+    <PackageReference Include="NINA.Plugin" Version="3.1.0.9001" />
   </ItemGroup>
   <PropertyGroup />
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
