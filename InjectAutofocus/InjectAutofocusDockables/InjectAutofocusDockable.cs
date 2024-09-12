@@ -16,6 +16,7 @@ using CommunityToolkit.Mvvm.Input;
 using NINA.Core.Utility;
 using NINA.Sequencer.Interfaces.Mediator;
 using NINA.Core.Enum;
+using System.Windows.Input;
 
 namespace CharlesHagen.NINA.InjectAutofocus.InjectAutofocusDockables {
     /// <summary>
@@ -23,7 +24,7 @@ namespace CharlesHagen.NINA.InjectAutofocus.InjectAutofocusDockables {
     /// In this example an altitude chart is added to the imaging tab that shows the altitude chart based on the position of the telescope    
     /// </summary>
     [Export(typeof(IDockableVM))]
-    public partial class InjectAutofocusDockable : DockableVM, ITelescopeConsumer{
+    public partial class InjectAutofocusDockable : DockableVM, ITelescopeConsumer {
         private INighttimeCalculator nighttimeCalculator;
         private ITelescopeMediator telescopeMediator;
         private ISequenceMediator sequenceMediator;
@@ -47,12 +48,19 @@ namespace CharlesHagen.NINA.InjectAutofocus.InjectAutofocusDockables {
             telescopeMediator.RegisterConsumer(this);
             Title = "Inject Autofocus";
             Target = null;
+
+            //InjectAutofocusCommand = new AsyncRelayCommand<bool>(async (o) =>
+            //{
+            //    await Task.Run(() => TriggerState.RequestAutofocus());
+            //}, (o) => sequenceMediator.IsAdvancedSequenceRunning());
         }
+
+        //public ICommand InjectAutofocusCommand { get; private set; }
+
 
         [RelayCommand]
         private static async Task<bool> InjectAutofocus_Button(object arg) {
             TriggerState.RequestAutofocus();
-            Logger.Info("Requested autofocus");
             return true;
         }
 

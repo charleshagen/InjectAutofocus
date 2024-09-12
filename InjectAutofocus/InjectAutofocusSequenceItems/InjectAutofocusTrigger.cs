@@ -124,10 +124,15 @@ namespace CharlesHagen.NINA.InjectAutofocus.InjectAutofocusTestCategory {
         /// <returns></returns>
         public override bool ShouldTrigger(ISequenceItem previousItem, ISequenceItem nextItem) {
             var queuedFocus = TriggerState.GetTriggerState() > 0;
-            if (!queuedFocus) { return false; }
+            if (!queuedFocus) return false;
 
-            if (nextItem == null || !(nextItem is IExposureItem exposureItem) || exposureItem.ImageType != "LIGHT") { return false; }
-            // Next item is a light exposure 
+            if (nextItem is not IExposureItem { ImageType: not "Light" }) return false;
+
+            // If an autofocus has occured since the last request, do not focus again, reset flag
+            if (history.AutoFocusPoints.LastOrDefault() is { } lastAF &&
+                lastAF.AutoFocusPoint.Time > TriggerState.GetLastRequested()) { 
+                queuedFocus = false; 
+            }
 
             if (ItemUtility.IsTooCloseToMeridianFlip(Parent, TriggerRunner.GetItemsSnapshot().First().GetEstimatedDuration() + nextItem?.GetEstimatedDuration() ?? TimeSpan.Zero)) {
                 Logger.Warning("Autofocus should be triggered, however the meridian flip is too close to be executed");
