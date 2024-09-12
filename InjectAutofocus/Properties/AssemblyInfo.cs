@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 // [MANDATORY] The name of your plugin
 [assembly: AssemblyTitle("Inject Autofocus")]
 // [MANDATORY] A short description of your plugin
-[assembly: AssemblyDescription("Inject an autofocus routine manually into your sequence while running.")]
+[assembly: AssemblyDescription("Inject an autofocus routine manually into your sequence.")]
 
 // The following attributes are not required for the plugin per se, but are required by the official manifest meta data
 
@@ -42,7 +42,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyMetadata("Tags", "Autofocus")]
 
 //[Optional] A link that will show a log of all changes in between your plugin's versions
-[assembly: AssemblyMetadata("ChangelogURL", "https://github.com/charleshagen/InjectAutofocus/InjectAutofocus/CHANGELOG.md")]
+[assembly: AssemblyMetadata("ChangelogURL", "https://github.com/charleshagen/InjectAutofocus/blob/master/InjectAutofocus/CHANGELOG.md")]
 
 //[Optional] The url to a featured logo that will be displayed in the plugin list next to the name
 [assembly: AssemblyMetadata("FeaturedImageURL", "https://github.com/charleshagen/InjectAutofocus/blob/master/InjectAutofocus/logo.png?raw=true")]
@@ -51,7 +51,14 @@ using System.Runtime.InteropServices;
 //[Optional] An additional url to an example example screenshot of your plugin in action
 [assembly: AssemblyMetadata("AltScreenshotURL", "")]
 //[Optional] An in-depth description of your plugin
-[assembly: AssemblyMetadata("LongDescription", "")]
+[assembly: AssemblyMetadata("LongDescription", @"## Usage ##
+Add the InjectAutofocus trigger into your sequence. When evaluated, the trigger will see if an autofocus routine has been requested and will run
+an autofocus routine before the next exposure. If another autofocus event occurs before your requested AF routine has started, it will clear the request
+only running once. You can request an autofocus routine while the sequence is running via the 'Inject Autofocus' panel and associated button in the imaging tab.
+")]
+
+
+
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
